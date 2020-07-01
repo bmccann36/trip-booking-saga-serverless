@@ -3,51 +3,22 @@ service: trip-booking-functions
 provider:
   name: aws
   runtime: nodejs10.x
-  region: eu-central-1
+  region: us-east-1
   stage: dev  
-  apiKeys:
-    - workflow-engine
 
 functions:
   book-car:
     handler: car/book/index.handler
-    events:
-      - http:
-          path: car/book
-          method: PUT
-          private: false
   cancel-car:
     handler: car/cancel/index.handler
-    events:
-      - http:
-          path: car/book
-          method: DELETE
-          private: false
   book-hotel:
     handler: hotel/book/index.handler
-    events:
-      - http:
-          path: hotel/book
-          method: PUT
-          private: false
   cancel-hotel:
     handler: hotel/cancel/index.handler
-    events:
-      - http:
-          path: hotel/book
-          method: DELETE
-          private: false
   book-flight:
     handler: flight/book/index.handler
-    events:
-      - http:
-          path: flight/book
-          method: PUT
-          private: false
   cancel-flight:
     handler: flight/cancel/index.handler
-    events:
-      - http:
-          path: flight/book
-          method: DELETE
-          private: false
+
+resources: 
+  - ${file(./zeebe-lambda-worker-role.yml)}

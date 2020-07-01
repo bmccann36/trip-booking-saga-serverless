@@ -1,0 +1,30 @@
+Resources:
+  zeebeLambdaWorkerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: zeebe-lambda-worker-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement: # we are granting permission to ECS
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: zeebeWorkerInvokePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement: # we are granting the following permissions to the following resources
+            - Effect: Allow
+              Action:
+              - lambda:InvokeFunction
+              - lambda:InvokeAsync
+            # Resources resolve to something like 'arn:aws:lambda:*:466357709346:function:trip-booking-functions-dev-book-car'
+            # Add each function name here you want the zeebe-lambda-worker to have permission to invoke
+              Resource: 
+              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'book-car']] }
+              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'cancel-car']] }
+              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'book-hotel']] }
+              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'cancel-hotel']] }
+              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'book-flight']] }
+              - { 'Fn::Join': ['', ['arn:aws:lambda:','*:', { Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'cancel-flight']] }
