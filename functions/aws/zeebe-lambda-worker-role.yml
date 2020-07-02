@@ -19,12 +19,7 @@ Resources:
               Action:
               - lambda:InvokeFunction
               - lambda:InvokeAsync
-            # Resources resolve to something like 'arn:aws:lambda:*:466357709346:function:trip-booking-functions-dev-book-car'
-            # Add each function name here you want the zeebe-lambda-worker to have permission to invoke
+            # resolves to 'arn:aws:lambda:*:<your-acct-id>:function:trip-booking-functions*'
               Resource: 
-              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'book-car']] }
-              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'cancel-car']] }
-              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'book-hotel']] }
-              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'cancel-hotel']] }
-              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'book-flight']] }
-              - { 'Fn::Join': ['', ['arn:aws:lambda:','*:', { Ref: 'AWS::AccountId' }, ':function:', '${self:service}','-${self:provider.stage}-', 'cancel-flight']] }
+              - { 'Fn::Join': ['', ['arn:aws:lambda:', '*:',{ Ref: 'AWS::AccountId' }, ':function:', '${self:service}*']] }
+
