@@ -1,0 +1,12 @@
+version: 1
+task_definition:
+  task_role_arn: arn:aws:iam::<YOUR AWS ACCOUNT ID>:role/zeebe-lambda-worker-role
+  task_size:
+    cpu_limit: 512
+    mem_limit: 256
+  services:
+    zeebe-lambda-connector:
+      cpu_shares: 100
+      mem_limit: 524288000
+                 
+                  

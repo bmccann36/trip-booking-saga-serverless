@@ -4,3 +4,6 @@ target
 .project
 .classpath
 .serverless
+zeebe-event-adapter/aws/camunda.env
+zeebe-event-adapter/aws/aws.env
+zeebe-event-adapter/aws/ecs-params.yml

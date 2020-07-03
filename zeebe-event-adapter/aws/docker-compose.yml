@@ -1,0 +1,13 @@
+version: '3'
+services:
+  zeebe-lambda-worker:
+    env_file:
+      - aws.env
+      - camunda.env
+    image: chylomicronman/zeebe-lambda-worker:v0.4
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: zeebe-lambda-worker
+        awslogs-region: us-east-1 # SET THIS TO YOUR PREFERRED REGION
+        awslogs-stream-prefix: ecs
