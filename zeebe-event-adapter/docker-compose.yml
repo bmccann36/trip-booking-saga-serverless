@@ -1,6 +1,6 @@
 version: '3'
 services:
-  zeebe-lambda-worker:
+  zeebelambdaworker:
     env_file:
       - aws.env
       - camunda.env
